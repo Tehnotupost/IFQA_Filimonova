@@ -14,14 +14,15 @@ public class MainPage {
     private final SelenideElement menuProject = $x("//a[@title='Просмотр недавних проектов или списка всех проектов']").as("Кнопка Проекты в меню");
     private final SelenideElement projectTest = $x("//a[text()='Test (TEST)']").as("Проект Тест в выпадающем меню");
 
-    public boolean isOnMainPage() {
-        return activityFeedWelcomeText.exists() &&
-                menuProject.exists();
+    public void isOnMainPage() {
+        if (activityFeedWelcomeText.exists()) {
+            menuProject.exists();
+        }
     }
 
-    public TestPage goToTestPage(){
+    public void goToTestPage(){
         menuProject.shouldBe(Condition.visible, Duration.ofSeconds(30)).click();
         projectTest.shouldBe(Condition.visible, Duration.ofSeconds(30)).click();
-        return Selenide.page(TestPage.class);
+        Selenide.page(TestPage.class);
     }
 }

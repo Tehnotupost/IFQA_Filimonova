@@ -1,12 +1,14 @@
 package edujiraifellow.pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.refresh;
 
 public class TestPage {
 
@@ -26,55 +28,63 @@ public class TestPage {
     private static final SelenideElement exportButton = $x("//a[@id='worklog-tabpanel']").as("Кнопка Экспорт");
     private static final SelenideElement typeButtonVisible = $x("//button[text()='Визуальный']").as("Кнопка Визуальный");
     private static final SelenideElement headInput = $x("//iframe[@id='mce_19_ifr']").as("Описание");
-    private static final SelenideElement saveKey = $x("//div[@id='issuetype-single-select']/child::span[@class='icon aui-ss-icon noloading drop-menu']").as("Стрелка");
+    private static final SelenideElement processDropDown = $x("//span[contains(text(),'Бизнес-процесс')]").as("<Бизнес-процесс>");
+    private static final SelenideElement processCloseBug = $x("//span[contains(text(),'Выполнено')]").as("Выполнено");
 
-    public static void applyFilterAllProjects(){
+    public void applyFilterAllProjects(){
         filterDropdownMenu.shouldBe(Condition.visible, Duration.ofSeconds(30)).click();
         filterAllProjects.shouldBe(Condition.visible, Duration.ofSeconds(30)).click();
     }
-    public static int getCounterValue() {
+    public int getCounterValue() {
+        refresh();
         exportButton.shouldBe(Condition.visible, Duration.ofSeconds(30));
         String counterText = counterProjects.getText();
-        System.out.println("Число задач: " + counterText);
         return Integer.parseInt(counterText.substring(counterText.lastIndexOf(" ") + 1));
     }
-    public static void clickCreateButton() {
-        createButton.click();
+    public void clickCreateButton() {
+        createButton.shouldBe(Condition.visible, Duration.ofSeconds(10))
+                .click();
     }
-    public static void isOnCreateTaskPopAp() {
-        titleCreateTaskPopAp.exists();
+    public boolean isOnCreateTaskPopAp() {
+        titleCreateTaskPopAp.shouldBe(Condition.visible, Duration.ofSeconds(10))
+                .exists();
+        return true;
     }
-    public static void clickCreateButtonMini() {
-        createButtonMini.click();
+    public void clickCreateButtonMini() {
+        createButtonMini.shouldBe(Condition.visible, Duration.ofSeconds(10))
+                .click();
     }
-    public static void enterNameOfTopic(String username) {
-        topicInput.setValue("Задача Задач1");
+    public void enterNameOfTopic(String topicName) {
+        topicInput.shouldBe(Condition.visible, Duration.ofSeconds(10))
+                .setValue(topicName);
     }
-    public static void initChekAllTaskAndFilters(){
+    public void initChekAllTaskAndFilters(){
         chekAllTaskAndFilters.shouldBe(Condition.visible, Duration.ofSeconds(30)).click();
     }
-    public static void enterInputTaskSearch(String username) {
-        inputTaskSearch.setValue("TestSeleniumATHomework");
+    public void enterInputTaskSearch(String searchText) {
+        inputTaskSearch.shouldBe(Condition.visible, Duration.ofSeconds(10))
+                .setValue(searchText);
     }
-    public static void clickSearchButton() {
-        searchButton.click();
+    public void clickSearchButton() {
+        searchButton.shouldBe(Condition.visible, Duration.ofSeconds(10))
+                .click();
     }
-    public static String getStatusOfTaskValue() {
+    public String getStatusOfTaskValue() {
         statusOfTask.shouldBe(Condition.visible, Duration.ofSeconds(30));
         String counterText1 = statusOfTask.getText();
         System.out.println("Статус задачи: " + counterText1);
         return counterText1;
     }
-    public static String getStatusOfFixVersion() {
+    public String getStatusOfFixVersion() {
         statusOfFixVersion.shouldBe(Condition.visible, Duration.ofSeconds(30));
         String counterText2 = statusOfFixVersion.getText();
         System.out.println("Исправить в версиях: " + counterText2);
         return counterText2;
     }
-    public static void clickTypeButtonVisible() {
-        typeButtonVisible.click();
+    public void clickTypeButtonVisible() {
+        typeButtonVisible.shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
     }
-    public static void checkAndEnableButton() {
+    public void checkAndEnableButton() {
         typeButtonVisible.shouldBe(Condition.visible, Duration.ofSeconds(30));
         String ariaPressedValue = typeButtonVisible.getAttribute("aria-pressed");
         if (!"true".equals(ariaPressedValue)) {
@@ -83,14 +93,23 @@ public class TestPage {
             System.out.println("Кнопка уже в нажатом состоянии");
         }
     }
-    public static void selectTypeOfTask(){
+    public void selectTypeOfTask(){
         typeOfTaskComboBox.click();
         typeOfTaskComboBox.sendKeys(Keys.DELETE);
         typeOfTaskComboBox.setValue("Ошибка");
         typeOfTaskComboBox.sendKeys(Keys.ENTER);
     }
-    public static void enterHeadInput(String username) {
-        headInput.click();
-        headInput.setValue("Здесь была ошибка");
+
+    public void enterHeadInput(String text) {
+        Selenide.switchTo().frame(headInput);
+        SelenideElement editorBody = $x("//body[@id='tinymce']");
+        editorBody.shouldBe(Condition.visible).click();
+        editorBody.sendKeys(text);
+        Selenide.switchTo().defaultContent();
+    }
+
+    public void selectTypeOfBug() {
+        processDropDown.shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
+        processCloseBug.shouldBe(Condition.visible, Duration.ofSeconds(30)).click();
     }
 }
