@@ -1,5 +1,6 @@
 package edujiraifellow;
 
+import com.codeborne.selenide.Selenide;
 import edujiraifellow.pages.LoginPage;
 import edujiraifellow.pages.MainPage;
 import edujiraifellow.pages.TestPage;
@@ -16,6 +17,8 @@ public class ifellowtests extends WebHooks {
     private final MainPage MainPage = new MainPage();
     private final TestPage TestPage = new TestPage();
     private static final String TEST_TASK_NAME = "TestSeleniumATHomework";
+    // статус
+    // версия
     private static final String BUG_TASK_NAME = "Баг багулечка";
     private static final String REGULAR_TASK_NAME = "Задача Задач1";
     private static final String BUG_DESCRIPTION = "Здесь была ошибка";
@@ -57,6 +60,7 @@ public class ifellowtests extends WebHooks {
                 "Окно отображается");
         TestPage.enterNameOfTopic(REGULAR_TASK_NAME);
         TestPage.clickCreateButtonMini();
+        Selenide.refresh();
         int lastNumberAfter = TestPage.getCounterValue();
         assertEquals(lastNumberBefore + 1, lastNumberAfter,
                 "Счетчик увеличился на 1");
@@ -79,6 +83,7 @@ public class ifellowtests extends WebHooks {
                 "Окно отображается");
         TestPage.enterNameOfTopic(REGULAR_TASK_NAME);
         TestPage.clickCreateButtonMini();
+        Selenide.refresh();
         int lastNumberAfter = TestPage.getCounterValue();
         assertEquals(lastNumberBefore + 1, lastNumberAfter,
                 "Счетчик увеличился на 1");
@@ -86,7 +91,7 @@ public class ifellowtests extends WebHooks {
         TestPage.initChekAllTaskAndFilters();
         TestPage.enterInputTaskSearch(TEST_TASK_NAME);
         TestPage.clickSearchButton();
-        assertEquals("Сделать", TestPage.getStatusOfTaskValue(),
+        assertEquals("СДЕЛАТЬ", TestPage.getStatusOfTaskValue(),
                 "Статус 'Сделать'");
         assertEquals("Version 2.0", TestPage.getStatusOfFixVersion(),
                 "Версия 'Version 2.0'");
@@ -109,6 +114,7 @@ public class ifellowtests extends WebHooks {
                 "Окно отображается");
         TestPage.enterNameOfTopic(REGULAR_TASK_NAME);
         TestPage.clickCreateButtonMini();
+        Selenide.refresh();
         int lastNumberAfter = TestPage.getCounterValue();
         assertEquals(lastNumberBefore + 1, lastNumberAfter,
                 "Счетчик увеличился на 1");
@@ -126,7 +132,7 @@ public class ifellowtests extends WebHooks {
         TestPage.checkAndEnableButton();
         TestPage.selectTypeOfTask();
         TestPage.enterNameOfTopic(BUG_TASK_NAME);
-//        TestPage.enterHeadInput(BUG_DESCRIPTION); не получается, не знаю, почему
+        TestPage.enterHeadInput(BUG_DESCRIPTION);
         TestPage.clickCreateButtonMini();
         TestPage.enterInputTaskSearch(BUG_TASK_NAME);
         TestPage.clickSearchButton();

@@ -3,12 +3,15 @@ package edujiraifellow.pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.refresh;
+
 
 public class TestPage {
 
@@ -27,7 +30,7 @@ public class TestPage {
     private static final SelenideElement createButtonMini = $x("//input[@id='create-issue-submit']").as("Кнопка Создать в попапе создания задачи");
     private static final SelenideElement exportButton = $x("//a[@id='worklog-tabpanel']").as("Кнопка Экспорт");
     private static final SelenideElement typeButtonVisible = $x("//button[text()='Визуальный']").as("Кнопка Визуальный");
-    private static final SelenideElement headInput = $x("//iframe[@id='mce_19_ifr']").as("Описание");
+    private static final SelenideElement headInput = $x("//html[@style='height: auto;']").as("Описание");
     private static final SelenideElement processDropDown = $x("//span[contains(text(),'Бизнес-процесс')]").as("<Бизнес-процесс>");
     private static final SelenideElement processCloseBug = $x("//span[contains(text(),'Выполнено')]").as("Выполнено");
 
@@ -36,11 +39,13 @@ public class TestPage {
         filterAllProjects.shouldBe(Condition.visible, Duration.ofSeconds(30)).click();
     }
     public int getCounterValue() {
-        refresh();
-        exportButton.shouldBe(Condition.visible, Duration.ofSeconds(30));
+        counterProjects.shouldBe(Condition.visible, Duration.ofSeconds(30));
+        String counterTextStart = counterProjects.getText();
+        counterProjects.shouldNotHave(Condition.exactText(counterTextStart.substring(counterTextStart.lastIndexOf(" ") + 1)), Duration.ofSeconds(30));
         String counterText = counterProjects.getText();
         return Integer.parseInt(counterText.substring(counterText.lastIndexOf(" ") + 1));
     }
+
     public void clickCreateButton() {
         createButton.shouldBe(Condition.visible, Duration.ofSeconds(10))
                 .click();
@@ -100,12 +105,19 @@ public class TestPage {
         typeOfTaskComboBox.sendKeys(Keys.ENTER);
     }
 
-    public void enterHeadInput(String text) {
-        Selenide.switchTo().frame(headInput);
-        SelenideElement editorBody = $x("//body[@id='tinymce']");
-        editorBody.shouldBe(Condition.visible).click();
-        editorBody.sendKeys(text);
-        Selenide.switchTo().defaultContent();
+    public void enterHeadInput(String bugDescription) {
+//        headInput.click();
+//        headInput.setValue(bugDescription);
+        SelenideElement iframeElement = $("iframe");
+        Selenide.switchTo().frame(iframeElement);
+
+        try {
+            headInput.shouldBe(Condition.visible).click();
+            headInput.sendKeys(bugDescription);
+
+        } finally {
+            Selenide.switchTo().defaultContent();
+        }
     }
 
     public void selectTypeOfBug() {
