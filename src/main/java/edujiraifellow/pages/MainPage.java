@@ -6,18 +6,18 @@ import com.codeborne.selenide.SelenideElement;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class MainPage {
 
-    private final SelenideElement activityFeedWelcomeText = $x("//h2[text()='Your Company Jira']").as("Текст в ленте активности");
+    private final SelenideElement activityFeedWelcomeText = $x("//h2[@id='stream-title' and contains(normalize-space(), 'Your Company Jira')]").as("Текст в ленте активности");
     private final SelenideElement menuProject = $x("//a[@title='Просмотр недавних проектов или списка всех проектов']").as("Кнопка Проекты в меню");
     private final SelenideElement projectTest = $x("//a[text()='Test (TEST)']").as("Проект Тест в выпадающем меню");
 
-    public void isOnMainPage() {
-        if (activityFeedWelcomeText.exists()) {
-            menuProject.exists();
-        }
+    public boolean isOnMainPage() {
+        menuProject.shouldBe(visible, Duration.ofSeconds(10));
+        return true;
     }
 
     public void goToTestPage(){

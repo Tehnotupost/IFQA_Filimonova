@@ -12,12 +12,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 
-public class WebHooks {
+import static com.codeborne.selenide.Selenide.clearBrowserCookies;
+import static com.codeborne.selenide.Selenide.clearBrowserLocalStorage;
 
-//    public static void maximizeWindow() {
-//        WebDriver driver = WebDriverRunner.getWebDriver();
-//        driver.manage().window().maximize();
-//    }
+public class WebHooks {
 
     @BeforeAll
     public static void loadConfig() {
@@ -36,6 +34,8 @@ public class WebHooks {
 
     @AfterEach
     public void afterTest() {
+        clearBrowserCookies();
+        clearBrowserLocalStorage();
         Selenide.closeWebDriver();
     }
 
