@@ -3,7 +3,6 @@ package edujiraifellow.pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.conditions.CssValue;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
