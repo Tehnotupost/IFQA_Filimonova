@@ -5,7 +5,6 @@ import io.restassured.response.ValidatableResponse;
 import static io.restassured.RestAssured.given;
 
 public class EpisodeApi extends BaseRandMApi {
-    private static final String BASE_URL = "https://rickandmortyapi.com/api";
     private static final String EPISODE_PATH = "/episode";
 
     public ValidatableResponse getAllEpisodes() {
@@ -15,10 +14,10 @@ public class EpisodeApi extends BaseRandMApi {
                 .then();
     }
 
-    public static ValidatableResponse getEpisodeById(int id) {
+    public ValidatableResponse getEpisodeById(int id) {
         return given()
                 .when()
-                .get(BASE_URL + EPISODE_PATH + "/" + id)
+                .get( EPISODE_PATH + "/" + id)
                 .then();
     }
 

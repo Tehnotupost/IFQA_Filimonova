@@ -5,7 +5,6 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 
 public class CharacterApi extends BaseRandMApi{
-    private static final String BASE_URL = "https://rickandmortyapi.com/api";
     private static final String CHARACTER_PATH = "/character";
 
     public ValidatableResponse getAllCharacters() {
@@ -15,10 +14,10 @@ public class CharacterApi extends BaseRandMApi{
                 .then();
     }
 
-    public static ValidatableResponse getCharacterInfo(int characterId) {
+    public ValidatableResponse getCharacterInfo(int characterId) {
         return given()
                 .when()
-                .get(BASE_URL + "/character/" + characterId)
+                .get(CHARACTER_PATH + "/" + characterId)
                 .then();
     }
 

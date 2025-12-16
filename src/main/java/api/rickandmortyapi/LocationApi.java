@@ -5,7 +5,6 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 
 public class LocationApi extends BaseRandMApi {
-    private static final String BASE_URL = "https://rickandmortyapi.com/api";
     private static final String LOCATION_PATH = "/location";
 
     public ValidatableResponse getAllLocations() {
