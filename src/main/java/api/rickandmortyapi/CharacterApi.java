@@ -15,7 +15,7 @@ public class CharacterApi extends BaseRandMApi{
                 .then();
     }
 
-    public ValidatableResponse getCharacterInfo(int characterId) {
+    public static ValidatableResponse getCharacterInfo(int characterId) {
         return given()
                 .when()
                 .get(BASE_URL + "/character/" + characterId)

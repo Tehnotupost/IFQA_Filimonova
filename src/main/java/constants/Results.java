@@ -1,4 +1,4 @@
-package constsnts;
+package constants;
 
 import lombok.Data;
 import java.util.List;
@@ -13,7 +13,7 @@ public class Results {
     String type;
     String gender;
     Origin origin;
-    Location location;
+    LocationConst location;
     String image;
     List<String> episode;
     Date url;

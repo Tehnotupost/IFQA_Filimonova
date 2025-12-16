@@ -1,4 +1,4 @@
-package constsnts;
+package constants;
 
 import lombok.Data;
 import java.util.Date;
@@ -6,6 +6,6 @@ import java.util.Date;
 
 public class Origin {
     String name;
-    Date url;
+    String url;
 }
 

@@ -1,4 +1,4 @@
-package constsnts;
+package constants;
 
 import lombok.Data;
 import java.util.Date;

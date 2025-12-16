@@ -1,10 +1,10 @@
-package constsnts;
+package constants;
 
 import lombok.Data;
 import java.util.List;
 @Data
 
-public class Character {
+public class CharacterConst {
     private Integer id;
     private String name;
     private String status;
@@ -12,7 +12,7 @@ public class Character {
     private String type;
     private String gender;
     private Origin origin;
-    private Location location;
+    private LocationConst location;
     private String image;
     private List<String> episode;
     private String url;

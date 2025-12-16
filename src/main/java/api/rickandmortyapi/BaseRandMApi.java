@@ -1,8 +1,8 @@
 package api.rickandmortyapi;
 
 import api.Specifications;
-import constsnts.EnvConstants;
-import constsnts.Info;
+import constants.EnvConstants;
+import constants.Info;
 import io.restassured.RestAssured;
 import lombok.Data;
 import java.util.List;

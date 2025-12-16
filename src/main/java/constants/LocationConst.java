@@ -1,11 +1,11 @@
-package constsnts;
+package constants;
 
 import lombok.Data;
 import java.util.List;
 
 @Data
 
-public class Location {
+public class LocationConst {
     private Integer id;
     private String name;
     private String type;

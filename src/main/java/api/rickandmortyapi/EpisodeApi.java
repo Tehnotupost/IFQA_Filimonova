@@ -15,10 +15,10 @@ public class EpisodeApi extends BaseRandMApi {
                 .then();
     }
 
-    public ValidatableResponse getEpisodeById(int id) {
+    public static ValidatableResponse getEpisodeById(int id) {
         return given()
                 .when()
-                .get(EPISODE_PATH + "/" + id)
+                .get(BASE_URL + EPISODE_PATH + "/" + id)
                 .then();
     }
 
