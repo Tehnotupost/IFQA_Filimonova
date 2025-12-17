@@ -20,9 +20,7 @@ public class rickandmortyapiTests extends WebHooks {
     @DisplayName("Последний эпизод с Морти")
     void checkLastEpisodeWithMorty() {
 
-        CharacterConst mortyInfo = TestUtils.getCharacter(mortyId);
-        String lastEpisodeUrl = mortyInfo.getEpisode().get(mortyInfo.getEpisode().size() - 1);
-        EpisodeConst lastEpisodeInfo = TestUtils.getEpisode(TestUtils.extractIdFromUrl(lastEpisodeUrl));
+        EpisodeConst lastEpisodeInfo = rickAndMortyService.getLastEpisodeOfCharacter(mortyId);
         assertNotNull(lastEpisodeInfo);
     }
 
@@ -30,12 +28,8 @@ public class rickandmortyapiTests extends WebHooks {
     @DisplayName("Последний персонаж последнего эпизода")
     void checkLastCharacterOfLastEpisodeWithMorty() {
 
-        CharacterConst mortyInfo = TestUtils.getCharacter(mortyId);
-        String lastEpisodeUrl = mortyInfo.getEpisode().get(mortyInfo.getEpisode().size() - 1);
-        EpisodeConst lastEpisodeInfo = TestUtils.getEpisode(TestUtils.extractIdFromUrl(lastEpisodeUrl));
-
-        String lastCharacterUrl = lastEpisodeInfo.getCharacters().get(lastEpisodeInfo.getCharacters().size() - 1);
-        CharacterConst lastCharacterInfo = TestUtils.getCharacter(TestUtils.extractIdFromUrl(lastCharacterUrl));
+        EpisodeConst lastEpisodeInfo = rickAndMortyService.getLastEpisodeOfCharacter(mortyId);
+        CharacterConst lastCharacterInfo = rickAndMortyService.getLastCharacterOfEpisode(lastEpisodeInfo);
         assertNotNull(lastCharacterInfo);
     }
 
@@ -61,7 +55,6 @@ public class rickandmortyapiTests extends WebHooks {
         String mortySpecies = mortyInfo.getSpecies();
 
         EpisodeConst lastEpisodeInfo = rickAndMortyService.getLastEpisodeOfCharacter(mortyId);
-
         CharacterConst lastCharacterInfo = rickAndMortyService.getLastCharacterOfEpisode(lastEpisodeInfo);
         String lastCharacterLoc = lastCharacterInfo.getLocation().getName();
         String lastCharacterSpecies = lastCharacterInfo.getSpecies();
