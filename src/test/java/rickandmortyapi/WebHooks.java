@@ -1,10 +1,10 @@
 package rickandmortyapi;
 
-import api.rickandmortyapi.CharacterApi;
-import api.rickandmortyapi.EpisodeApi;
-import constants.CharacterConst;
-import constants.EpisodeConst;
-import constants.LocationConst;
+import RandM.api.rickandmortyapi.CharacterApi;
+import RandM.api.rickandmortyapi.EpisodeApi;
+import RandM.api.constants.CharacterConst;
+import RandM.api.constants.EpisodeConst;
+import RandM.api.constants.LocationConst;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 

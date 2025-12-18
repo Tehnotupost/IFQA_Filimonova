@@ -1,4 +1,4 @@
-package api.rickandmortyapi;
+package RandM.api.rickandmortyapi;
 
 import io.restassured.response.ValidatableResponse;
 

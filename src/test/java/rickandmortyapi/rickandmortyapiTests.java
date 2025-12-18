@@ -1,15 +1,14 @@
 package rickandmortyapi;
 
-import api.RickAndMortyService;
-import api.TestUtils;
-import constants.CharacterConst;
-import constants.EpisodeConst;
+import RandM.api.RickAndMortyService;
+import RandM.api.TestUtils;
+import RandM.api.constants.CharacterConst;
+import RandM.api.constants.EpisodeConst;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 
 public class rickandmortyapiTests extends WebHooks {
 
@@ -19,7 +18,6 @@ public class rickandmortyapiTests extends WebHooks {
     @Test
     @DisplayName("Последний эпизод с Морти")
     void checkLastEpisodeWithMorty() {
-
         EpisodeConst lastEpisodeInfo = rickAndMortyService.getLastEpisodeOfCharacter(mortyId);
         assertNotNull(lastEpisodeInfo);
     }
@@ -27,7 +25,6 @@ public class rickandmortyapiTests extends WebHooks {
     @Test
     @DisplayName("Последний персонаж последнего эпизода")
     void checkLastCharacterOfLastEpisodeWithMorty() {
-
         EpisodeConst lastEpisodeInfo = rickAndMortyService.getLastEpisodeOfCharacter(mortyId);
         CharacterConst lastCharacterInfo = rickAndMortyService.getLastCharacterOfEpisode(lastEpisodeInfo);
         assertNotNull(lastCharacterInfo);
@@ -36,7 +33,6 @@ public class rickandmortyapiTests extends WebHooks {
     @Test
     @DisplayName("Местонахождение и раса последнего персонажа")
     void checkLocationAndTypeLastCharacter() {
-
         EpisodeConst lastEpisodeInfo = rickAndMortyService.getLastEpisodeOfCharacter(mortyId);
         CharacterConst lastCharacterInfo = rickAndMortyService.getLastCharacterOfEpisode(lastEpisodeInfo);
 
@@ -49,7 +45,6 @@ public class rickandmortyapiTests extends WebHooks {
     @Test
     @DisplayName("Местонахождение и раса последнего персонажа. Сравнение с Морти")
     void compareLocationAndTypeLastCharacterWithMorty() {
-
         CharacterConst mortyInfo = TestUtils.getCharacter(mortyId);
         String mortyLoc = mortyInfo.getLocation().getName();//
         String mortySpecies = mortyInfo.getSpecies();

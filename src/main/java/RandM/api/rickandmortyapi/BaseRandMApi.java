@@ -1,7 +1,7 @@
-package api.rickandmortyapi;
+package RandM.api.rickandmortyapi;
 
-import api.Specifications;
-import constants.EnvConstants;
+import RandM.api.Specifications;
+import RandM.api.constants.EnvConstants;
 import io.restassured.RestAssured;
 import lombok.Data;
 @Data

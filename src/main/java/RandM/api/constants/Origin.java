@@ -1,4 +1,4 @@
-package constants;
+package RandM.api.constants;
 
 import lombok.Data;
 @Data

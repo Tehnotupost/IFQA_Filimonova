@@ -1,7 +1,7 @@
-package api;
+package RandM.api;
 
-import constants.CharacterConst;
-import constants.EpisodeConst;
+import RandM.api.constants.CharacterConst;
+import RandM.api.constants.EpisodeConst;
 
 public class RickAndMortyService {
 

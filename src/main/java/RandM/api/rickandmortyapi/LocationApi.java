@@ -1,27 +1,27 @@
-package api.rickandmortyapi;
+package RandM.api.rickandmortyapi;
 
 import io.restassured.response.ValidatableResponse;
 import java.util.Map;
 import static io.restassured.RestAssured.given;
 
-public class CharacterApi extends BaseRandMApi{
-    private static final String CHARACTER_PATH = "/character";
+public class LocationApi extends BaseRandMApi {
+    private static final String LOCATION_PATH = "/location";
 
-    public ValidatableResponse getAllCharacters() {
+    public ValidatableResponse getAllLocations() {
         return given()
                 .when()
-                .get(CHARACTER_PATH)
+                .get(LOCATION_PATH)
                 .then();
     }
 
-    public ValidatableResponse getCharacterInfo(int characterId) {
+    public ValidatableResponse getLocationById(int id) {
         return given()
                 .when()
-                .get(CHARACTER_PATH + "/" + characterId)
+                .get(LOCATION_PATH + "/" + id)
                 .then();
     }
 
-    public ValidatableResponse getMultipleCharacters(int[] ids) {
+    public ValidatableResponse getMultipleLocations(int[] ids) {
         String idsParam = String.join(",",
                 java.util.Arrays.stream(ids)
                         .mapToObj(String::valueOf)
@@ -29,15 +29,15 @@ public class CharacterApi extends BaseRandMApi{
 
         return given()
                 .when()
-                .get(CHARACTER_PATH + "/" + idsParam)
+                .get(LOCATION_PATH + "/" + idsParam)
                 .then();
     }
 
-    public ValidatableResponse filterCharacters(Map<String, Object> filters) {
+    public ValidatableResponse filterLocations(Map<String, Object> filters) {
         return given()
                 .queryParams(filters)
                 .when()
-                .get(CHARACTER_PATH)
+                .get(LOCATION_PATH)
                 .then();
     }
 }

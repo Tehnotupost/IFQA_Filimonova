@@ -1,9 +1,9 @@
-package api;
+package RandM.api;
 
-import api.rickandmortyapi.CharacterApi;
-import api.rickandmortyapi.EpisodeApi;
-import constants.CharacterConst;
-import constants.EpisodeConst;
+import RandM.api.rickandmortyapi.CharacterApi;
+import RandM.api.rickandmortyapi.EpisodeApi;
+import RandM.api.constants.CharacterConst;
+import RandM.api.constants.EpisodeConst;
 
 import lombok.Data;
 @Data
