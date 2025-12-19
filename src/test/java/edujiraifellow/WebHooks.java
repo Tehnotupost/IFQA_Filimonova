@@ -19,7 +19,7 @@ public class WebHooks {
     @BeforeAll
     public static void loadConfig() {
         CustomProperties.loadProperties();
-    };
+    }
 
     @BeforeEach
     public void initBrowser() {
