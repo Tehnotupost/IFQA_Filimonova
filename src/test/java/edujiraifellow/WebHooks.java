@@ -3,7 +3,6 @@ package edujiraifellow;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
-import com.codeborne.selenide.logevents.SelenideLogger;
 import edujiraifellow.utils.CustomProperties;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -24,11 +23,11 @@ public class WebHooks {
 
     @BeforeEach
     public void initBrowser() {
-        Configuration.pageLoadStrategy = PageLoadStrategy.EAGER.toString();
-        Configuration.timeout = 15000;
         Selenide.open(CustomProperties.getProps().getProperty("main.url"));
         WebDriver driver = WebDriverRunner.getWebDriver();
         driver.manage().window().maximize();
+        Configuration.pageLoadStrategy = PageLoadStrategy.EAGER.toString();
+        Configuration.timeout = 15000;
         System.out.println(Configuration.pageLoadStrategy);
     }
 
@@ -41,6 +40,6 @@ public class WebHooks {
 
     @AfterAll
     public static void closeConfig() {
-        System.out.println("Конец");
+        System.out.println("Тут мог бы быть ваш отчет");
     }
 }
