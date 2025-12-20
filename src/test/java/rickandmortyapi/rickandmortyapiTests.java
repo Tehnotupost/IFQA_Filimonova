@@ -46,7 +46,7 @@ public class rickandmortyapiTests extends WebHooks {
     @DisplayName("Местонахождение и раса последнего персонажа. Сравнение с Морти")
     void compareLocationAndTypeLastCharacterWithMorty() {
         CharacterConst mortyInfo = TestUtils.getCharacter(mortyId);
-        String mortyLoc = mortyInfo.getLocation().getName();//
+        String mortyLoc = mortyInfo.getLocation().getName();
         String mortySpecies = mortyInfo.getSpecies();
 
         EpisodeConst lastEpisodeInfo = rickAndMortyService.getLastEpisodeOfCharacter(mortyId);
