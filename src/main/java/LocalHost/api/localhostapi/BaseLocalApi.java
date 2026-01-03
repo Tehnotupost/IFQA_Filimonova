@@ -1,12 +1,12 @@
 package LocalHost.api.localhostapi;
 
-import LocalHost.api.constForCall.EnvLocalhostConst;
-import LocalHost.api.localhostSpec;
 import io.restassured.RestAssured;
+import utils.CustomProperties;
+import utils.Specifications;
 
 public abstract class BaseLocalApi {
     public BaseLocalApi() {
-        RestAssured.requestSpecification = localhostSpec.baseRequestSpec(EnvLocalhostConst.MY_URL);
-        RestAssured.responseSpecification = localhostSpec.baseResponseSpecSuccess();
+        RestAssured.requestSpecification = Specifications.baseRequestSpec(CustomProperties.getProps().getProperty("MY_URL"));
+        RestAssured.responseSpecification = Specifications.baseResponseSpecSuccess();
     }
 }

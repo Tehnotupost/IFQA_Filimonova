@@ -1,19 +1,11 @@
 package LocalHost.api.localhostapi;
 
+import utils.CustomProperties;
 import io.restassured.response.ValidatableResponse;
-
-import static io.restassured.RestAssured.given;
-
+import static utils.metods.PostCall.callPost;
 
 public class LoginPageApi extends BaseLocalApi {
-    private static final String LOGIN_PATH = "/api/login";
-
     public ValidatableResponse loginUser(String credentials) {
-
-        return given()
-                .when()
-                .body(credentials)
-                .post(LOGIN_PATH)
-                .then();
+        return callPost(CustomProperties.getProps().getProperty("LOGIN_PATH"), credentials);
     }
 }

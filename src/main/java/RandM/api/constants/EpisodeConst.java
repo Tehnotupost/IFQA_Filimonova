@@ -1,7 +1,6 @@
 package RandM.api.constants;
 
 import lombok.Data;
-
 import java.util.List;
 @Data
 

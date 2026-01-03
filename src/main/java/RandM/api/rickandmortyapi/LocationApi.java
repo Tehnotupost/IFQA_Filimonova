@@ -1,23 +1,23 @@
 package RandM.api.rickandmortyapi;
 
 import io.restassured.response.ValidatableResponse;
+import utils.CustomProperties;
 import java.util.Map;
 import static io.restassured.RestAssured.given;
 
 public class LocationApi extends BaseRandMApi {
-    private static final String LOCATION_PATH = "/location";
 
     public ValidatableResponse getAllLocations() {
         return given()
                 .when()
-                .get(LOCATION_PATH)
+                .get(CustomProperties.getProps().getProperty("LOCATION_PATH"))
                 .then();
     }
 
     public ValidatableResponse getLocationById(int id) {
         return given()
                 .when()
-                .get(LOCATION_PATH + "/" + id)
+                .get(CustomProperties.getProps().getProperty("LOCATION_PATH") + "/" + id)
                 .then();
     }
 
@@ -29,7 +29,7 @@ public class LocationApi extends BaseRandMApi {
 
         return given()
                 .when()
-                .get(LOCATION_PATH + "/" + idsParam)
+                .get(CustomProperties.getProps().getProperty("LOCATION_PATH") + "/" + idsParam)
                 .then();
     }
 
@@ -37,7 +37,7 @@ public class LocationApi extends BaseRandMApi {
         return given()
                 .queryParams(filters)
                 .when()
-                .get(LOCATION_PATH)
+                .get(CustomProperties.getProps().getProperty("LOCATION_PATH"))
                 .then();
     }
 }

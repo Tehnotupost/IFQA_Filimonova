@@ -6,39 +6,40 @@ import LocalHost.api.localhostapi.LogoutPageApi;
 import LocalHost.api.localhostapi.RegisterPageApi;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.AfterAll;
+import utils.CustomProperties;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
-import static LocalHost.api.constForCall.EnvLocalhostConst.filePath;
-
-
 public class WebHooksLocal {
     protected String authToken;
-    protected static final RegisterPageApi registerPageApi = new RegisterPageApi();
-    protected static final LoginPageApi loginPageApi = new LoginPageApi();
-    protected static final LogoutPageApi logoutPageApi= new LogoutPageApi();
+    protected static RegisterPageApi registerPageApi;
+    protected static LoginPageApi loginPageApi;
+    protected static LogoutPageApi logoutPageApi;
 
     @BeforeAll
     static void setup() {
-        RestAssured.port = 8080;
+        CustomProperties.loadProperties();
+        RestAssured.port = Integer.parseInt(CustomProperties.getProps().getProperty("port"));
+        registerPageApi = new RegisterPageApi();
+        loginPageApi = new LoginPageApi();
+        logoutPageApi= new LogoutPageApi();
     }
+
     @BeforeEach
     void continuosUp() {
         registerPageApi
-                .registrationUser(localhostTestUtils.getJsonBody(filePath))
+                .registrationUser(localhostTestUtils.getJsonBody(CustomProperties.getProps().getProperty("filePath")))
                 .statusCode(200);
 
         Response response =
                 loginPageApi
-                        .loginUser(localhostTestUtils.getJsonBody(filePath))
+                        .loginUser(localhostTestUtils.getJsonBody(CustomProperties.getProps().getProperty("filePath")))
                         .statusCode(200)
                         .extract()
                         .response();
 
         authToken = localhostTestUtils.saveToken(response.getBody().asString());
-        System.out.println("Записали" + authToken);
     }
 
     @AfterEach
@@ -47,10 +48,5 @@ public class WebHooksLocal {
             logoutPageApi
                     .logoutUser(authToken);
         }
-    }
-
-    @AfterAll
-    static void closeAll() {
-
     }
 }

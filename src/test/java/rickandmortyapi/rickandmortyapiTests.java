@@ -6,26 +6,25 @@ import RandM.api.constants.CharacterConst;
 import RandM.api.constants.EpisodeConst;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import utils.CustomProperties;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class rickandmortyapiTests extends WebHooks {
-
-    private static final int mortyId = 2;
     private final RickAndMortyService rickAndMortyService = new RickAndMortyService();
 
     @Test
     @DisplayName("Последний эпизод с Морти")
     void checkLastEpisodeWithMorty() {
-        EpisodeConst lastEpisodeInfo = rickAndMortyService.getLastEpisodeOfCharacter(mortyId);
+        EpisodeConst lastEpisodeInfo = rickAndMortyService.getLastEpisodeOfCharacter(Integer.parseInt(CustomProperties.getProps()
+                .getProperty("mortyId")));
         assertNotNull(lastEpisodeInfo);
     }
 
     @Test
     @DisplayName("Последний персонаж последнего эпизода")
     void checkLastCharacterOfLastEpisodeWithMorty() {
-        EpisodeConst lastEpisodeInfo = rickAndMortyService.getLastEpisodeOfCharacter(mortyId);
+        EpisodeConst lastEpisodeInfo = rickAndMortyService.getLastEpisodeOfCharacter(Integer.parseInt(CustomProperties.getProps()
+                .getProperty("mortyId")));
         CharacterConst lastCharacterInfo = rickAndMortyService.getLastCharacterOfEpisode(lastEpisodeInfo);
         assertNotNull(lastCharacterInfo);
     }
@@ -33,9 +32,9 @@ public class rickandmortyapiTests extends WebHooks {
     @Test
     @DisplayName("Местонахождение и раса последнего персонажа")
     void checkLocationAndTypeLastCharacter() {
-        EpisodeConst lastEpisodeInfo = rickAndMortyService.getLastEpisodeOfCharacter(mortyId);
+        EpisodeConst lastEpisodeInfo = rickAndMortyService.getLastEpisodeOfCharacter(Integer.parseInt(CustomProperties.getProps()
+                .getProperty("mortyId")));
         CharacterConst lastCharacterInfo = rickAndMortyService.getLastCharacterOfEpisode(lastEpisodeInfo);
-
         String lastCharacterLoc = lastCharacterInfo.getLocation().getName();
         assertNotNull(lastCharacterLoc);
         String lastCharacterSpecies = lastCharacterInfo.getSpecies();
@@ -45,27 +44,16 @@ public class rickandmortyapiTests extends WebHooks {
     @Test
     @DisplayName("Местонахождение и раса последнего персонажа. Сравнение с Морти")
     void compareLocationAndTypeLastCharacterWithMorty() {
-        CharacterConst mortyInfo = TestUtils.getCharacter(mortyId);
+        CharacterConst mortyInfo = TestUtils.getCharacter(Integer.parseInt(CustomProperties.getProps()
+                .getProperty("mortyId")));
         String mortyLoc = mortyInfo.getLocation().getName();
         String mortySpecies = mortyInfo.getSpecies();
-
-        EpisodeConst lastEpisodeInfo = rickAndMortyService.getLastEpisodeOfCharacter(mortyId);
+        EpisodeConst lastEpisodeInfo = rickAndMortyService.getLastEpisodeOfCharacter(Integer.parseInt(CustomProperties.getProps()
+                .getProperty("mortyId")));
         CharacterConst lastCharacterInfo = rickAndMortyService.getLastCharacterOfEpisode(lastEpisodeInfo);
         String lastCharacterLoc = lastCharacterInfo.getLocation().getName();
         String lastCharacterSpecies = lastCharacterInfo.getSpecies();
-
-        try {
-            assertEquals(mortyLoc, lastCharacterLoc);
-            System.out.println("Локации совпадают");
-        } catch (AssertionError e) {
-            System.out.println("Локации не совпадают: " + e.getMessage());
-        }
-
-        try {
-            assertEquals(mortySpecies, lastCharacterSpecies, "Сравниваем расы");
-            System.out.println("Расы совпадают");
-        } catch (AssertionError e) {
-            System.out.println("Расы не совпадают: " + e.getMessage());
-        }
+        assertEquals(mortySpecies,lastCharacterSpecies);
+        assertNotEquals(mortyLoc,lastCharacterLoc);
     }
 }

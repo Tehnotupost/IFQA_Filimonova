@@ -1,17 +1,11 @@
 package LocalHost.api.localhostapi;
 
 import io.restassured.response.ValidatableResponse;
-
-import static io.restassured.RestAssured.given;
+import utils.CustomProperties;
+import static utils.metods.PostCall.callPost;
 
 public class RegisterPageApi extends BaseLocalApi {
-    private static final String REGISTER_PATH = "/api/register";
-
     public ValidatableResponse registrationUser(String credentials) {
-        return given()
-                .when()
-                .body(credentials)
-                .post(REGISTER_PATH)
-                .then();
+       return callPost(CustomProperties.getProps().getProperty("REGISTER_PATH"), credentials);
     }
 }
