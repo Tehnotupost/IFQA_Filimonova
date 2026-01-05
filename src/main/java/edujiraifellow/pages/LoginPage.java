@@ -2,13 +2,12 @@ package edujiraifellow.pages;
 
 import com.codeborne.selenide.SelenideElement;
 import edujiraifellow.utils.CustomProperties;
-
 import java.time.Duration;
-
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class LoginPage {
+public class LoginPage extends BasePage {
 
     private final SelenideElement usernameField = $x("//input[@id='login-form-username']").as("Строка ввода логина");
     private final SelenideElement passwordField = $x("//input[@id='login-form-password']").as("Строка ввода пароля");
@@ -34,6 +33,8 @@ public class LoginPage {
     }
 
     public void loginAs(String username, String password) {
+        assertTrue(isOnLoginPage(),
+                "На странице авторизации");
         enterUsername(username);
         enterPassword(password);
         clickLogin();
