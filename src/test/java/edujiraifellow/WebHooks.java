@@ -2,18 +2,20 @@ package edujiraifellow;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import edujiraifellow.utils.ChromeDriverResolver;
 import edujiraifellow.utils.CustomProperties;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.PageLoadStrategy;
-import org.openqa.selenium.WebDriver;
+
 import java.io.File;
-import static com.codeborne.selenide.Configuration.*;
+
+import static com.codeborne.selenide.Configuration.webdriverLogsEnabled;
 import static com.codeborne.selenide.Selenide.clearBrowserCookies;
 import static com.codeborne.selenide.Selenide.clearBrowserLocalStorage;
+import static edujiraifellow.utils.BrowserManager.maximizeWindow;
+import static edujiraifellow.utils.BrowserManager.openMainPage;
 
 public class WebHooks {
 
@@ -30,10 +32,8 @@ public class WebHooks {
 
     @BeforeEach
     public void initBrowser() {
-        Selenide.open(CustomProperties.getProps().getProperty("main.url"));
-        WebDriver webDriver = WebDriverRunner.getWebDriver();
-        webDriver.manage().window().maximize();
-        System.out.println(Configuration.pageLoadStrategy);
+        openMainPage();
+        maximizeWindow();
     }
 
     @AfterEach
