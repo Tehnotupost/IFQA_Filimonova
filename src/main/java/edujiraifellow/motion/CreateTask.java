@@ -10,7 +10,7 @@ public class CreateTask {
 
     public void fastCreate() {
         openTaskTestPage.clickFastCreateTaskButton();
-        openTaskTestPage.fastCreateTask( CustomProperties.getProps().getProperty("REGULAR_TASK_NAME"));
+        openTaskTestPage.fastCreateTask(CustomProperties.getProps().getProperty("REGULAR_TASK_NAME"));
     }
 
     public void longCreate() {
@@ -24,7 +24,5 @@ public class CreateTask {
         createTaskTestPage.setPriorityDropDown();
         createTaskTestPage.putLabelsOfTask(CustomProperties.getProps().getProperty("LABELS_oF_TASK_VALUE"));
         createTaskTestPage.clickCreateButtonMini();
-        SearchTask searchTask = new SearchTask();
-        searchTask.searchTask(CustomProperties.getProps().getProperty("BUG_TASK_NAME"));
     }
 }

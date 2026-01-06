@@ -3,12 +3,14 @@ package edujiraifellow.pages;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
+
 import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class CreateTaskTestPage extends BasePage{
+public class CreateTaskTestPage extends BasePage {
     private final SelenideElement typeOfTaskComboBox = $x("//input[@id='issuetype-field']").as("Тип задачи");
     private final SelenideElement topicInput = $x("//input[@id='summary']").as("Строка Тема");
     private final SelenideElement createButtonMini = $x("//input[@id='create-issue-submit']").as("Кнопка Создать в попапе создания задачи");
