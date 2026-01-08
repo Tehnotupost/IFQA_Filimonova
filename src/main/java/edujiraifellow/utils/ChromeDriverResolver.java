@@ -8,7 +8,6 @@ public class ChromeDriverResolver {
         String os = System.getProperty("os.name").toLowerCase();
         String platform;
         String ext = "";
-
         if (os.contains("win")) {
             platform = "win";
             ext = ".exe";
@@ -17,7 +16,6 @@ public class ChromeDriverResolver {
         } else {
             platform = "linux";
         }
-
         String resourcePath = String.format(
                 "drivers/chrome/%s/%s/chromedriver%s",
                 chromeVersion, platform, ext

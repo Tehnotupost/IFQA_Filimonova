@@ -9,13 +9,11 @@ import io.cucumber.java.Before;
 import org.openqa.selenium.PageLoadStrategy;
 
 import java.io.File;
-import java.util.Map;
 
 import static com.codeborne.selenide.Configuration.webdriverLogsEnabled;
 import static com.codeborne.selenide.Selenide.clearBrowserCookies;
 import static com.codeborne.selenide.Selenide.clearBrowserLocalStorage;
-import static edujiraifellow.utils.BrowserManager.maximizeWindow;
-import static edujiraifellow.utils.BrowserManager.openMainPage;
+import static edujiraifellow.utils.BrowserManager.*;
 
 public class WebHooks {
 
@@ -23,10 +21,8 @@ public class WebHooks {
     public void loadConfig() {
         CustomProperties.loadProperties();
         webdriverLogsEnabled = false;
-        Configuration.browserCapabilities.setCapability(
-                "goog:loggingPrefs",
-                Map.of("browser", "OFF", "driver", "OFF"));
-        Configuration.browser = CustomProperties.getProps().getProperty("browser.name");
+        isBrowserLogsEnabled("browser.logs.off");
+        Configuration.browser = applyConfigurationBrowser();
         Configuration.pageLoadStrategy = PageLoadStrategy.EAGER.toString();
         Configuration.timeout = 15000;
         File driver = ChromeDriverResolver.resolve();
