@@ -14,8 +14,7 @@ import java.io.File;
 import static com.codeborne.selenide.Configuration.webdriverLogsEnabled;
 import static com.codeborne.selenide.Selenide.clearBrowserCookies;
 import static com.codeborne.selenide.Selenide.clearBrowserLocalStorage;
-import static edujiraifellow.utils.BrowserManager.maximizeWindow;
-import static edujiraifellow.utils.BrowserManager.openMainPage;
+import static edujiraifellow.utils.BrowserManager.*;
 
 public class WebHooks {
 
@@ -23,7 +22,7 @@ public class WebHooks {
     public static void loadConfig() {
         CustomProperties.loadProperties();
         webdriverLogsEnabled = false;
-        Configuration.browser = CustomProperties.getProps().getProperty("browser.name");
+        Configuration.browser = applyConfigurationBrowser();
         Configuration.pageLoadStrategy = PageLoadStrategy.EAGER.toString();
         Configuration.timeout = 15000;
         File driver = ChromeDriverResolver.resolve();

@@ -14,4 +14,8 @@ public class BrowserManager {
                 .window()
                 .maximize();
     }
+
+    public static String applyConfigurationBrowser() {
+        return CustomProperties.getProps().getProperty("browser.name");
+    }
 }

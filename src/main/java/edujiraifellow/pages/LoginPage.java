@@ -1,8 +1,9 @@
 package edujiraifellow.pages;
 
 import com.codeborne.selenide.SelenideElement;
-import edujiraifellow.utils.CustomProperties;
+
 import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -21,11 +22,11 @@ public class LoginPage extends BasePage {
     }
 
     public void enterUsername(String username) {
-        usernameField.setValue(CustomProperties.getProps().getProperty("login"));
+        usernameField.setValue(username);
     }
 
     public void enterPassword(String password) {
-        passwordField.setValue(CustomProperties.getProps().getProperty("password"));
+        passwordField.setValue(password);
     }
 
     public void clickLogin() {
