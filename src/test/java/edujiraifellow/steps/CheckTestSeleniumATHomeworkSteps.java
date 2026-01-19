@@ -1,6 +1,5 @@
 package edujiraifellow.steps;
 
-import edujiraifellow.motion.SearchTask;
 import edujiraifellow.pages.OpenTaskTestPage;
 import edujiraifellow.utils.CustomProperties;
 import io.cucumber.java.ru.Когда;
@@ -10,12 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CheckTestSeleniumATHomeworkSteps {
     private final OpenTaskTestPage openTaskTestPage = new OpenTaskTestPage();
-    SearchTask searchTask = new SearchTask();
 
     @Когда("пользователь ищет задачу {string}")
     public void fyndeTask(String nametask) {
         openTaskTestPage.initChekAllTaskAndFilters();
-        searchTask.searchTask(CustomProperties.getProps().getProperty(nametask));
+        openTaskTestPage.searchTask(CustomProperties.getProps().getProperty(nametask));
     }
 
     @Тогда("статус задачи {string}")

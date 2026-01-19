@@ -20,6 +20,10 @@ public class ChromeDriverResolver {
                 "drivers/chrome/%s/%s/chromedriver%s",
                 chromeVersion, platform, ext
         );
-        return DriverExtractor.extractDriver(resourcePath);
+        try {
+            return DriverExtractor.extractDriver(resourcePath);
+        } catch (RuntimeException e) {
+            return null;
+        }
     }
 }

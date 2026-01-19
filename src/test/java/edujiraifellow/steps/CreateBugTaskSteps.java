@@ -1,6 +1,6 @@
 package edujiraifellow.steps;
 
-import edujiraifellow.motion.CreateTask;
+import edujiraifellow.pages.CreateTaskTestPage;
 import edujiraifellow.pages.OpenTaskTestPage;
 import edujiraifellow.utils.CustomProperties;
 import io.cucumber.java.ru.Когда;
@@ -11,11 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CreateBugTaskSteps {
     private final OpenTaskTestPage openTaskTestPage = new OpenTaskTestPage();
-    private final CreateTask createTask = new CreateTask();
+    private final CreateTaskTestPage createTaskTestPage = new CreateTaskTestPage();
 
     @Когда("пользователь создает баг")
     public void createBug() {
-        createTask.longCreate();
+        openTaskTestPage.clickCreateButton();
+        createTaskTestPage.longCreate();
     }
 
     @Тогда("баг отображается в таблице")

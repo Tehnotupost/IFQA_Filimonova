@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 
+import java.io.File;
 import java.util.Map;
 
 public class BrowserManager {
@@ -27,5 +28,12 @@ public class BrowserManager {
                 "goog:loggingPrefs",
                 Map.of("browser", CustomProperties.getProps().getProperty(value),
                         "driver", CustomProperties.getProps().getProperty(value)));
+    }
+
+    public static void addBrowserDriver() {
+        File driver = ChromeDriverResolver.resolve();
+        if (driver != null && driver.exists()) {
+            System.setProperty("webdriver.chrome.driver", driver.getAbsolutePath());
+        }
     }
 }

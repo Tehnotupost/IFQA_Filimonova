@@ -2,6 +2,7 @@ package edujiraifellow.pages;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import edujiraifellow.utils.CustomProperties;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
@@ -73,5 +74,17 @@ public class CreateTaskTestPage extends BasePage {
 
     public void putLabelsOfTask(String labelsOfTaskValue) {
         deleteTextAndSetNewValue(labelsOfTask, labelsOfTaskValue);
+    }
+
+    public void longCreate() {
+        checkAndEnableButton();
+        selectProjectName(CustomProperties.getProps().getProperty("NAME_OF_PROJECT"));
+        selectTypeOfTask(CustomProperties.getProps().getProperty("TYPE_OF_TASK"));
+        enterNameOfTopic(CustomProperties.getProps().getProperty("BUG_TASK_NAME"));
+        enterHeadInput(CustomProperties.getProps().getProperty("BUG_DESCRIPTION"));
+        clickFixInVersion2p0();
+        setPriorityDropDown();
+        putLabelsOfTask(CustomProperties.getProps().getProperty("LABELS_oF_TASK_VALUE"));
+        clickCreateButtonMini();
     }
 }

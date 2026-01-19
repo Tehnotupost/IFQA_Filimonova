@@ -2,10 +2,14 @@ package edujiraifellow.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import edujiraifellow.utils.CustomProperties;
 import org.openqa.selenium.Keys;
+
 import java.time.Duration;
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.*;
+
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$x;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OpenTaskTestPage extends BasePage {
 
@@ -44,6 +48,14 @@ public class OpenTaskTestPage extends BasePage {
         return true;
     }
 
+    public int changeCounter() {
+        int lastNumberBefore = getCounterValue();
+        fastCreate();
+        assertTrue(waitCounterValueChange(), "каунтер сменился");
+        int lastNumberAfter = getCounterValue();
+        return lastNumberAfter - lastNumberBefore;
+    }
+
     public void clickFastCreateTaskButton() {
         clickButton(fastCreateTaskButton);
     }
@@ -51,6 +63,11 @@ public class OpenTaskTestPage extends BasePage {
     public void fastCreateTask(String name) {
         fastCreateTextArea.shouldBe(visible, Duration.ofSeconds(10)).setValue(name);
         fastCreateTextArea.sendKeys(Keys.ENTER);
+    }
+
+    public void fastCreate() {
+        clickFastCreateTaskButton();
+        fastCreateTask(CustomProperties.getProps().getProperty("REGULAR_TASK_NAME"));
     }
 
     public void clickCreateButton() {
@@ -90,8 +107,14 @@ public class OpenTaskTestPage extends BasePage {
     public String getTaskNameInTable() {
         return getAnyText(taskNameInTable);
     }
+
     public boolean waitTaskNameInTableChange() {
         taskNameInTable.shouldNotHave(Condition.text(getTaskNameInTable()), Duration.ofSeconds(30));
         return true;
+    }
+
+    public void searchTask(String searchingName) {
+        enterInputTaskSearch(searchingName);
+        clickSearchButton();
     }
 }

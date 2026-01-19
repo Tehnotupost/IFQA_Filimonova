@@ -1,7 +1,5 @@
 package edujiraifellow.steps;
 
-import edujiraifellow.motion.ChangeCounter;
-import edujiraifellow.motion.CreateTask;
 import edujiraifellow.pages.OpenTaskTestPage;
 import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.Когда;
@@ -11,23 +9,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CheckQualityTaskSteps {
-    private final OpenTaskTestPage OpenTaskTestPage = new OpenTaskTestPage();
-    private final CreateTask createTask = new CreateTask();
+    private final OpenTaskTestPage openTaskTestPage = new OpenTaskTestPage();
     private int diff;
 
     @Дано("пользователь применяет фильтр Все задачи")
     public void applyFilter() {
-        OpenTaskTestPage.applyFilterAllProjects();
+        openTaskTestPage.applyFilterAllProjects();
     }
 
     @Тогда("Фильтр Все задачи применился")
     public void filterChanged() {
-        assertTrue(OpenTaskTestPage.waitCounterValueChange());
+        assertTrue(openTaskTestPage.waitCounterValueChange());
     }
 
     @Когда("пользователь создает быструю задачу")
     public void createFastTask() {
-        diff = new ChangeCounter().changeCounter();
+        diff = openTaskTestPage.changeCounter();
     }
 
     @Тогда("счетчик задач увеличился на {int}")
