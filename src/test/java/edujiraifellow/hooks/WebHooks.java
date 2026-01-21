@@ -17,16 +17,6 @@ import static edujiraifellow.utils.BrowserManager.*;
 
 public class WebHooks {
 
-    static {
-        SelenideLogger.addListener(
-                "AllureSelenide",
-                new AllureSelenide()
-                        .screenshots(true)
-                        .savePageSource(false)
-                        .includeSelenideSteps(false)
-        );
-    }
-
     @BeforeAll
     public static void loadConfig() {
         CustomProperties.loadProperties();
@@ -36,9 +26,9 @@ public class WebHooks {
         Configuration.timeout = 15000;
         Configuration.headless = false;
         addBrowserDriver();
-//        SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
-//                .screenshots(true).
-//                savePageSource(false).includeSelenideSteps(false));
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
+                .screenshots(true).
+                savePageSource(false).includeSelenideSteps(false));
     }
 
     @BeforeEach
