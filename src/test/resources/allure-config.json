@@ -1,0 +1,22 @@
+{
+  "allure": {
+    "directory": {
+      "report": "target/allure-report",
+      "results": "target/allure-results"
+    },
+    "links": [
+      {
+        "type": "issue",
+        "urlTemplate": "https://example.com/issue/%s"
+      }
+    ],
+    "environment": {
+      "maskPatterns": [
+        "password=.*",
+        "pass=.*",
+        "pwd=.*",
+        "Authorization: Bearer .*"
+      ]
+    }
+  }
+}

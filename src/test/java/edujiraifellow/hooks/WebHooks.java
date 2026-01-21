@@ -1,15 +1,14 @@
-package edujiraifellow;
+package edujiraifellow.hooks;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import edujiraifellow.utils.ChromeDriverResolver;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import edujiraifellow.utils.CustomProperties;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.PageLoadStrategy;
-
-import java.io.File;
 
 import static com.codeborne.selenide.Configuration.webdriverLogsEnabled;
 import static com.codeborne.selenide.Selenide.clearBrowserCookies;
@@ -18,6 +17,16 @@ import static edujiraifellow.utils.BrowserManager.*;
 
 public class WebHooks {
 
+    static {
+        SelenideLogger.addListener(
+                "AllureSelenide",
+                new AllureSelenide()
+                        .screenshots(true)
+                        .savePageSource(false)
+                        .includeSelenideSteps(false)
+        );
+    }
+
     @BeforeAll
     public static void loadConfig() {
         CustomProperties.loadProperties();
@@ -25,8 +34,11 @@ public class WebHooks {
         Configuration.browser = applyConfigurationBrowser();
         Configuration.pageLoadStrategy = PageLoadStrategy.EAGER.toString();
         Configuration.timeout = 15000;
-        File driver = ChromeDriverResolver.resolve();
-        System.setProperty("webdriver.chrome.driver", driver.getAbsolutePath());
+        Configuration.headless = false;
+        addBrowserDriver();
+//        SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
+//                .screenshots(true).
+//                savePageSource(false).includeSelenideSteps(false));
     }
 
     @BeforeEach
