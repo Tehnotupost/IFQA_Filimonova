@@ -1,39 +1,34 @@
 package edujiraifellow.hooks;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import edujiraifellow.utils.CustomProperties;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.PageLoadStrategy;
 
-import static com.codeborne.selenide.Configuration.webdriverLogsEnabled;
 import static com.codeborne.selenide.Selenide.clearBrowserCookies;
 import static com.codeborne.selenide.Selenide.clearBrowserLocalStorage;
 import static edujiraifellow.utils.BrowserManager.*;
 
 public class WebHooks {
+    protected static CustomProperties config;
 
     @BeforeAll
     public static void loadConfig() {
-        CustomProperties.loadProperties();
-        webdriverLogsEnabled = false;
-        Configuration.browser = applyConfigurationBrowser();
-        Configuration.pageLoadStrategy = PageLoadStrategy.EAGER.toString();
-        Configuration.timeout = 15000;
-        Configuration.headless = false;
-        addBrowserDriver();
+        config = CustomProperties.getInstance();
+        setupBrowser(config);
+        SelenideLogger.removeListener("AllureSelenide");
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
-                .screenshots(true).
-                savePageSource(false).includeSelenideSteps(false));
+                .screenshots(config.allureScreenshotsEnabled()).
+                savePageSource(config.savePageSource()).includeSelenideSteps(config.includeSelenideSteps()));
     }
 
     @BeforeEach
     public void initBrowser() {
-        openMainPage();
+        openMainPage(config);
         maximizeWindow();
     }
 
@@ -41,6 +36,10 @@ public class WebHooks {
     public void afterTest() {
         clearBrowserCookies();
         clearBrowserLocalStorage();
+    }
+
+    @AfterAll
+    public static void closeBrowser() {
         Selenide.closeWebDriver();
     }
 }

@@ -90,13 +90,13 @@ public class CreateTaskTestPage extends BasePage {
     @Step("Создаем баг-репорт")
     public void longCreate() {
         checkAndEnableButton();
-        selectProjectName(CustomProperties.getProps().getProperty("NAME_OF_PROJECT"));
-        selectTypeOfTask(CustomProperties.getProps().getProperty("TYPE_OF_TASK"));
-        enterNameOfTopic(CustomProperties.getProps().getProperty("BUG_TASK_NAME"));
-        enterHeadInput(CustomProperties.getProps().getProperty("BUG_DESCRIPTION"));
+        selectProjectName(CustomProperties.getInstance().nameOfProject());
+        selectTypeOfTask(CustomProperties.getInstance().typeOfTask());
+        enterNameOfTopic(CustomProperties.getInstance().bugTaskName());
+        enterHeadInput(CustomProperties.getInstance().bugDescription());
         clickFixInVersion2p0();
         setPriorityDropDown();
-        putLabelsOfTask(CustomProperties.getProps().getProperty("LABELS_oF_TASK_VALUE"));
+        putLabelsOfTask(CustomProperties.getInstance().labelsOfTask());
         clickCreateButtonMini();
     }
 }

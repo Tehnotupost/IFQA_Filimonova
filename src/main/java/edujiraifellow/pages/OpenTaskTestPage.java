@@ -55,7 +55,7 @@ public class OpenTaskTestPage extends BasePage {
     @Step("Проверяем, что при создании задачи каунтер увеличивает значение на 1")
     public int changeCounter() {
         int lastNumberBefore = getCounterValue();
-        fastCreateTask(CustomProperties.getProps().getProperty("REGULAR_TASK_NAME"));
+        fastCreateTask(CustomProperties.getInstance().regularTaskName());
         assertTrue(waitCounterValueChange(), "каунтер сменился");
         int lastNumberAfter = getCounterValue();
         return lastNumberAfter - lastNumberBefore;
@@ -104,7 +104,7 @@ public class OpenTaskTestPage extends BasePage {
         return getAnyText(statusOfTask);
     }
 
-    @Step("Ждем, пока ствтус задачи изменится")
+    @Step("Ждем, пока статус задачи изменится")
     public boolean waitStatusOfTaskValueChange() {
         statusOfTask.shouldNotHave(Condition.text(getStatusOfTaskValue()), Duration.ofSeconds(30));
         return true;

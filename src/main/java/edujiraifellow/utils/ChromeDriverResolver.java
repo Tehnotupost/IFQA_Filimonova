@@ -3,8 +3,8 @@ package edujiraifellow.utils;
 import java.io.File;
 
 public class ChromeDriverResolver {
-    public static File resolve() {
-        String chromeVersion = CustomProperties.getProps().getProperty("chrome.version");
+    public static File resolve(CustomProperties config) {
+        String chromeVersion = config.chromeVersion();
         String os = System.getProperty("os.name").toLowerCase();
         String platform;
         String ext = "";

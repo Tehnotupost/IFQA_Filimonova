@@ -1,6 +1,7 @@
 package edujiraifellow.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import edujiraifellow.utils.Security;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 
@@ -30,7 +31,7 @@ public class LoginPage extends BasePage {
     @Step("Вводим пароль *******")
     public void enterPassword(String password) {
         maskedPassword();
-        passwordField.setValue(password);
+        Security.setPassword(passwordField, password);
     }
 
     @Step("Нажимаем кнопку 'Войти'")
@@ -45,6 +46,7 @@ public class LoginPage extends BasePage {
         enterUsername(username);
         enterPassword(password);
         clickLogin();
+        Security.clear(passwordField);
         return new MainPage();
     }
 
