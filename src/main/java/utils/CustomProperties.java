@@ -1,20 +1,53 @@
 package utils;
 
-import lombok.Getter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
+import org.aeonbits.owner.Config;
+import org.aeonbits.owner.ConfigFactory;
 
-public class CustomProperties {
-    @Getter
-    private static final Properties props = new Properties();
-
-    public static void loadProperties() {
-        try {
-            props.load(new FileInputStream(new File("src/test/resources/config.properties")));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+@Config.LoadPolicy(Config.LoadType.MERGE)
+@Config.Sources({
+        "classpath:localhost.properties",
+        "classpath:randm.properties"
+})
+@Config.HotReload(type = Config.HotReloadType.ASYNC, value = 5)
+public interface CustomProperties extends Config {
+    static CustomProperties getInstance() {
+        return ConfigFactory.create(CustomProperties.class);
     }
+
+    @Key("randm.url")
+    @DefaultValue("https://rickandmortyapi.com/api")
+    String randmUrl();
+
+    @Key("character.path")
+    String characterPath();
+
+    @Key("episode.path")
+    String episodePath();
+
+    @Key("port")
+    @DefaultValue("8080")
+    int port();
+
+    @Key("my.url")
+    String myUrl();
+
+    @Key("file.path")
+    String filePath();
+
+    @Key("register.path")
+    String registerPath();
+
+    @Key("login.path")
+    String loginPath();
+
+    @Key("logout.path")
+    String logoutPath();
+
+    @Key("wrong.token")
+    String wrongToken();
+
+    @Key("status.code.ok")
+    int statusCodeOk();
+
+    String getProperty(String key);
 }

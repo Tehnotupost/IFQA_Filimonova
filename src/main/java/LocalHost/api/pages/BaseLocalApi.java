@@ -1,12 +1,15 @@
-package LocalHost.api.localhostapi;
+package LocalHost.api.pages;
 
 import io.restassured.RestAssured;
 import utils.CustomProperties;
 import utils.Specifications;
 
 public abstract class BaseLocalApi {
+    protected static CustomProperties config;
+
     public BaseLocalApi() {
-        RestAssured.requestSpecification = Specifications.baseRequestSpec(CustomProperties.getProps().getProperty("MY_URL"));
+        config = CustomProperties.getInstance();
+        RestAssured.requestSpecification = Specifications.baseRequestSpec(config.myUrl());
         RestAssured.responseSpecification = Specifications.baseResponseSpecSuccess();
     }
 }

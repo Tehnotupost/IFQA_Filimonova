@@ -1,15 +1,15 @@
 package RandM.api.rickandmortyapi;
 
-import utils.Specifications;
 import io.restassured.RestAssured;
-import lombok.Data;
 import utils.CustomProperties;
+import utils.Specifications;
 
-@Data
 public abstract class BaseRandMApi {
+    protected static CustomProperties config;
 
     public BaseRandMApi() {
-        RestAssured.requestSpecification = Specifications.baseRequestSpec(CustomProperties.getProps().getProperty("RandM_URL"));
+        config = CustomProperties.getInstance();
+        RestAssured.requestSpecification = Specifications.baseRequestSpec(config.randmUrl());
         RestAssured.responseSpecification = Specifications.baseResponseSpecSuccess();
     }
 }

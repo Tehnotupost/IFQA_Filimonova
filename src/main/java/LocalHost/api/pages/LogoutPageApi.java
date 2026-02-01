@@ -1,16 +1,19 @@
-package LocalHost.api.localhostapi;
+package LocalHost.api.pages;
 
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
-import utils.CustomProperties;
+
 import java.util.Map;
+
 import static utils.metods.GetCall.callGet;
 
 public class LogoutPageApi extends BaseLocalApi {
+    @Step("Отправка GET запроса на выход с токеном в теле")
     public ValidatableResponse logoutUser(String authToken) {
         if (authToken == null || authToken.isEmpty()) {
             throw new IllegalStateException("Токен не найден");
         }
-    Map<String, String> headers = Map.of("Authorization", authToken);
-    return callGet(CustomProperties.getProps().getProperty("LOGOUT_PATH"), headers);
+        Map<String, String> headers = Map.of("Authorization", authToken);
+        return callGet(config.logoutPath(), headers);
     }
 }
